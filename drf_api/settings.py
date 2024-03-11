@@ -57,12 +57,12 @@ REST_AUTH_SERIALIZERS = {
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%^bgz%g7ga(o%2+me__r&x^88xali%3@$u8k6)_$n9d5c%piw_'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['8000-morganstenbe-djangorest-7faxl4fxn51.ws-eu108.gitpod.io', 'drf-api-wk.herokuapp.com']
+ALLOWED_HOSTS = ['8000-morganstenbe-djangorest-7faxl4fxn51.ws-eu108.gitpod.io', '.herokuapp.com']
 
 
 # Application definition
@@ -113,6 +113,12 @@ else:
         r"^https://.*\.gitpod\.io$",
     ]
 
+CORS_ALLOW_CREDENTIALS = True
+
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
+
 ROOT_URLCONF = 'drf_api.urls'
 
 TEMPLATES = [
@@ -148,6 +154,7 @@ else:
      DATABASES = {
          'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
      }
+
 
 
 # Password validation
